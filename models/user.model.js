@@ -14,12 +14,8 @@ class User {
     };
   }
 
-  async getUserWithSameEmail() {
-    return db.getDb.collection('users').findOne({ email: this.email });
-  }
-
-  async hasMatchingPassword(hashedPassword) {
-    return bcrypt.compare(this.password, hashedPassword);
+  getUserWithSameEmail() {
+    return db.getDb().collection('users').findOne({ email: this.email });
   }
 
   async signup() {
@@ -27,10 +23,14 @@ class User {
 
     await db.getDb().collection('users').insertOne({
       email: this.email,
-      passward: hashedPassword,
+      password: hashedPassword,
       name: this.name,
       address: this.address,
     });
+  }
+
+  hasMatchingPassword(hashedPassword) {
+    return bcrypt.compare(this.password, hashedPassword);
   }
 }
 

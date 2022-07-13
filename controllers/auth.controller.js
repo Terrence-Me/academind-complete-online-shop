@@ -1,11 +1,11 @@
 const User = require('../models/user.model');
 const authUtil = require('../util/authentication');
 
-async function getSignup(req, res, next) {
+function getSignup(req, res) {
   res.render('customer/auth/signup');
 }
 
-async function signup(req, res, next) {
+async function signup(req, res) {
   const user = new User(
     req.body.email,
     req.body.password,
@@ -20,11 +20,11 @@ async function signup(req, res, next) {
   res.redirect('/login');
 }
 
-async function getLogin(req, res, next) {
+function getLogin(req, res) {
   res.render('customer/auth/login');
 }
 
-async function login(req, res, next) {
+async function login(req, res) {
   const user = new User(req.body.email, req.body.password);
   const existingUser = await user.getUserWithSameEmail();
 
@@ -32,6 +32,7 @@ async function login(req, res, next) {
     res.redirect('/login');
     return;
   }
+
   const passwordIsCorrect = await user.hasMatchingPassword(
     existingUser.password
   );
@@ -44,7 +45,6 @@ async function login(req, res, next) {
   authUtil.createUserSession(req, existingUser, function () {
     res.redirect('/');
   });
-  //..
 }
 
 module.exports = {
