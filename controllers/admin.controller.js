@@ -1,0 +1,15 @@
+function getProdcuts(req, res) {
+  res.render('admin/products/all-products');
+}
+
+function getNewProduct(req, res) {
+  res.render('admin/products/new-product');
+}
+
+function createNewProduct() {}
+
+module.exports = {
+  getProdcuts: getProdcuts,
+  getNewProduct: getNewProduct,
+  createNewProduct: createNewProduct,
+};
