@@ -1,7 +1,13 @@
 const Product = require('../models/product.model');
 
-function getProdcuts(req, res) {
-  res.render('admin/products/all-products');
+async function getProducts(req, res, next) {
+  try {
+    const products = await Product.findAll();
+    res.render('admin/products/all-products', { products: products });
+  } catch (error) {
+    next(error);
+    return;
+  }
 }
 
 function getNewProduct(req, res) {
@@ -15,7 +21,7 @@ async function createNewProduct(req, res, next) {
   });
 
   try {
-    product.save();
+    await product.save();
   } catch (error) {
     next(error);
     return;
@@ -25,7 +31,7 @@ async function createNewProduct(req, res, next) {
 }
 
 module.exports = {
-  getProdcuts: getProdcuts,
+  getProducts: getProducts,
   getNewProduct: getNewProduct,
   createNewProduct: createNewProduct,
 };
