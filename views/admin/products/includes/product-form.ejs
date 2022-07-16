@@ -6,12 +6,13 @@
 
     <p>
         <label for="image">Image</label>
-        <input type="file" name="image" id="image" accept="image/png, image/jpg" required>
+        <input type="file" name="image" id="image" accept="image/png, image/jpg"
+            <% if (imageRequired) { %>required<% } %>>
     </p>
 
     <p>
         <label for="summary">Summary</label>
-        <input type="text" name="summary" id="summary" maxlength="250" value="<%= product.summar %>" required>
+        <input type="text" name="summary" id="summary" maxlength="250" value="<%= product.summary %>" required>
     </p>
 
     <p>
